@@ -5,6 +5,20 @@
   <title>Priya &amp; Saurabh - Wedding Invitation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Royal wedding invitation of Capt Dr. Priya Singh &amp; Dr. Saurabh Singh" />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#d4af37" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Wedding Invite" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" href="assets/photos/couple/1.jpeg" />
+  <link rel="icon" type="image/jpeg" href="assets/photos/couple/1.jpeg" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
@@ -1696,7 +1710,7 @@
 </head>
 <body>
   <!-- Background Music -->
-  <audio id="bg-music" loop preload="auto" autoplay volume="0.5">
+  <audio id="bg-music" loop preload="auto" volume="0.5">
     <source src="assets/music/1.mp3" type="audio/mpeg" />
   </audio>
 
@@ -2820,6 +2834,54 @@
       // Load translations when page loads
       loadTranslations();
     })();
+
+    // Register Service Worker for PWA (only works with http/https, not file://)
+    if ('serviceWorker' in navigator) {
+      // Check if we're on a supported protocol (http or https)
+      const isSupportedProtocol = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+      
+      if (isSupportedProtocol) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((registration) => {
+              console.log('ServiceWorker registration successful:', registration.scope);
+            })
+            .catch((error) => {
+              console.log('ServiceWorker registration failed:', error);
+            });
+        });
+      } else {
+        console.log('ServiceWorker not available: File must be served over http:// or https://');
+      }
+    }
+
+    // Handle install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      deferredPrompt = e;
+      // Optionally, show a custom install button
+      // You can add a button in your UI to trigger the install
+      console.log('PWA install prompt available');
+    });
+
+    // Optional: Add install button functionality
+    // You can call this function from a button click
+    window.installPWA = function() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+          deferredPrompt = null;
+        });
+      }
+    };
   </script>
 </body>
 </html>
