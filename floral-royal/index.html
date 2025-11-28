@@ -1303,7 +1303,8 @@
           <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:8px;">
             <a
               class="btn btn-primary"
-              href="https://wa.me/?text=You%20are%20warmly%20invited%20to%20the%20wedding%20of%20Captain%20Dr.%20Priya%20Singh%20and%20Dr.%20Saurabh%20Singh%20on%2022%20and%2023%20January%202026%20at%20Royal%20Lotus%20View%20Resotel%2C%20Bengaluru.%20Please%20tap%20the%20link%20to%20view%20the%20full%20invitation."
+              id="whatsappShare"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -1390,6 +1391,21 @@
       toggle.addEventListener("click", () => {
         setState(!isPlaying);
       });
+    })();
+
+    // WhatsApp share
+    (function () {
+      const shareBtn = document.getElementById("whatsappShare");
+      if (!shareBtn) return;
+
+      const pageUrl = "https://priyawedssaurabh.in";
+      const message = encodeURIComponent(
+        "You are warmly invited to the wedding of Captain Dr. Priya Singh and Dr. Saurabh Singh on 22 and 23 January 2026 at Royal Lotus View Resotel, Bengaluru.\n\n" +
+        "Please tap the link to view the full invitation:\n" +
+        pageUrl
+      );
+      
+      shareBtn.href = `https://wa.me/?text=${message}`;
     })();
   </script>
 </body>
