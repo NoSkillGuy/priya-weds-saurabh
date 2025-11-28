@@ -104,6 +104,7 @@
         padding: 3px 8px;
       }
 
+
       .hero {
         margin-top: 10px;
         padding: 20px 14px 24px;
@@ -384,7 +385,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-inner > div:last-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
       .brand {
@@ -1662,6 +1671,13 @@
             <a href="#venue" class="btn btn-ghost">
               View Venue &amp; Directions
             </a>
+            <button
+              class="btn btn-primary"
+              id="rsvpButtonHeader"
+            >
+              RSVP Now
+              <span class="btn-icon">✓</span>
+            </button>
           </div>
         </div>
 
@@ -2188,6 +2204,7 @@
     // RSVP Modal and WhatsApp Integration
     (function () {
       const rsvpButton = document.getElementById("rsvpButton");
+      const rsvpButtonHeader = document.getElementById("rsvpButtonHeader");
       const rsvpModal = document.getElementById("rsvpModal");
       const rsvpModalClose = document.getElementById("rsvpModalClose");
       const rsvpCancel = document.getElementById("rsvpCancel");
@@ -2195,13 +2212,21 @@
       const rsvpNameInput = document.getElementById("rsvpName");
       const rsvpDateInput = document.getElementById("rsvpDate");
 
-      if (!rsvpButton || !rsvpModal || !rsvpForm) return;
+      if (!rsvpModal || !rsvpForm) return;
 
-      // Open modal
-      rsvpButton.addEventListener("click", () => {
+      // Function to open modal
+      function openRSVPModal() {
         rsvpModal.classList.add("active");
         rsvpNameInput.focus();
-      });
+      }
+
+      // Open modal from both buttons
+      if (rsvpButton) {
+        rsvpButton.addEventListener("click", openRSVPModal);
+      }
+      if (rsvpButtonHeader) {
+        rsvpButtonHeader.addEventListener("click", openRSVPModal);
+      }
 
       // Close modal
       function closeModal() {
