@@ -1159,10 +1159,8 @@
 </head>
 <body>
   <!-- Background Music -->
-  <audio id="bg-music" loop>
-    <!-- Replace "music.mp3" with your own file in the same folder -->
-    <!-- Example: <source src="your-music-file.mp3" type="audio/mpeg" /> -->
-    <source src="music.mp3" type="audio/mpeg" />
+  <audio id="bg-music" loop preload="auto" autoplay volume="0.5">
+    <source src="assets/music/1.mp3" type="audio/mpeg" />
   </audio>
 
   <header class="site-header">
@@ -1238,7 +1236,7 @@
           <div class="hero-photo-frame">
             <div class="hero-photo-inner">
               <!-- Replaced placeholder with actual hero image -->
-              <img src="photos/couple/1.jpeg" alt="Captain Dr. Priya &amp; Dr. Saurabh" loading="lazy" />
+              <img src="assets/photos/couple/1.jpeg" alt="Captain Dr. Priya &amp; Dr. Saurabh" loading="lazy" />
             </div>
           </div>
           <div class="hero-photo-caption">
@@ -1282,7 +1280,7 @@
 
             <div class="portrait-frame">
               <div class="portrait-inner">
-                <img src="photos/bride/1.jpeg" alt="Bride - Captain Dr. Priya Singh" />
+                <img src="assets/photos/bride/1.jpeg" alt="Bride - Captain Dr. Priya Singh" />
               </div>
             </div>
           </div>
@@ -1305,7 +1303,7 @@
 
             <div class="portrait-frame">
               <div class="portrait-inner">
-                <img src="photos/groom/1.jpeg" alt="Groom - Dr. Saurabh Singh" />
+                <img src="assets/photos/groom/1.jpeg" alt="Groom - Dr. Saurabh Singh" />
               </div>
             </div>
           </div>
@@ -1329,32 +1327,32 @@
           <div class="gallery-grid">
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/couple/2.jpeg" alt="Couple photo 1" loading="lazy" />
+                <img src="assets/photos/couple/2.jpeg" alt="Couple photo 1" loading="lazy" />
               </div>
             </div>
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/family/3.jpeg" alt="Couple photo 2 (portrait)" loading="lazy" />
+                <img src="assets/photos/family/3.jpeg" alt="Couple photo 2 (portrait)" loading="lazy" />
               </div>
             </div>
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/couple/7.jpeg" alt="Friends and candid moment" loading="lazy" />
+                <img src="assets/photos/couple/7.jpeg" alt="Friends and candid moment" loading="lazy" />
               </div>
             </div>
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/couple/3.jpeg" alt="Traditional attire" loading="lazy" />
+                <img src="assets/photos/couple/3.jpeg" alt="Traditional attire" loading="lazy" />
               </div>
             </div>
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/couple/1.jpeg" alt="Favourite memory together" loading="lazy" />
+                <img src="assets/photos/couple/1.jpeg" alt="Favourite memory together" loading="lazy" />
               </div>
             </div>
             <div class="gallery-item">
               <div class="gallery-inner tall">
-                <img src="photos/couple/8.jpeg" alt="Special capture" loading="lazy" />
+                <img src="assets/photos/couple/8.jpeg" alt="Special capture" loading="lazy" />
               </div>
             </div>
           </div>
@@ -1452,7 +1450,7 @@
 
             <div class="event-item">
               <div class="event-icon-wrapper">
-                <img src="photos/icons/3.jpg" alt="Wedding" class="event-icon-image" />
+                <img src="assets/photos/icons/3.jpg" alt="Wedding" class="event-icon-image" />
               </div>
               <div class="event-content">
                 <div class="event-left">
@@ -1671,6 +1669,23 @@
       toggle.addEventListener("click", () => {
         setState(!isPlaying);
       });
+
+      // Auto-play music on page load
+      // Note: Browsers may block autoplay, so we try to play and handle errors gracefully
+      audio.volume = 0.5;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Autoplay started successfully
+            setState(true);
+          })
+          .catch(() => {
+            // Autoplay was blocked - user interaction required
+            // Music will start when user clicks the toggle
+            console.log("Autoplay blocked. User interaction required.");
+          });
+      }
     })();
 
     // WhatsApp share
