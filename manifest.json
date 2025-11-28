@@ -1,6 +1,6 @@
 {
   "name": "Priya & Saurabh Wedding Invitation",
-  "short_name": "Wedding Invite",
+  "short_name": "Priya & Saurabh Wedding Invite",
   "description": "Royal wedding invitation of Capt Dr. Priya Singh & Dr. Saurabh Singh",
   "start_url": "/",
   "scope": "/",
@@ -13,13 +13,13 @@
       "src": "assets/photos/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "assets/photos/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "categories": ["lifestyle", "events"],
