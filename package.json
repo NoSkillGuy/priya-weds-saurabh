@@ -1,0 +1,18 @@
+{
+  "name": "wedding-invitation-server",
+  "version": "1.0.0",
+  "description": "Local server for testing wedding invitation PWA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "pwa",
+    "wedding",
+    "server"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+

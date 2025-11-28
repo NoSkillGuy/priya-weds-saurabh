@@ -1,10 +1,12 @@
 // Service Worker for Wedding Invitation PWA
 const CACHE_NAME = 'wedding-invitation-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json',
-  './assets/music/1.mp3'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/assets/photos/icons/icon-192.png',
+  '/assets/photos/icons/icon-512.png',
+  '/assets/music/1.mp3'
 ];
 
 // Install event - cache resources
@@ -90,7 +92,7 @@ self.addEventListener('fetch', (event) => {
         // Network failed and no cache - return offline fallback for HTML pages
         if (event.request.destination === 'document' || 
             (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'))) {
-          return caches.match('./index.html');
+          return caches.match('/index.html');
         }
         
         // For other resources, return a basic error response

@@ -14,7 +14,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   
   <!-- Manifest -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="./manifest.json" />
   
   <!-- Apple Touch Icons -->
   <link rel="apple-touch-icon" href="assets/photos/couple/1.jpeg" />
@@ -2836,52 +2836,30 @@
     })();
 
     // Register Service Worker for PWA (only works with http/https, not file://)
+    let serviceWorkerRegistered = false;
     if ('serviceWorker' in navigator) {
       // Check if we're on a supported protocol (http or https)
       const isSupportedProtocol = window.location.protocol === 'http:' || window.location.protocol === 'https:';
       
       if (isSupportedProtocol) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
             .then((registration) => {
-              console.log('ServiceWorker registration successful:', registration.scope);
+              serviceWorkerRegistered = true;
             })
             .catch((error) => {
-              console.log('ServiceWorker registration failed:', error);
+              serviceWorkerRegistered = false;
             });
         });
-      } else {
-        console.log('ServiceWorker not available: File must be served over http:// or https://');
       }
     }
 
-    // Handle install prompt
-    let deferredPrompt;
+    // PWA install prompt handling (browser's native install icon will appear automatically)
     window.addEventListener('beforeinstallprompt', (e) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
-      // Stash the event so it can be triggered later
-      deferredPrompt = e;
-      // Optionally, show a custom install button
-      // You can add a button in your UI to trigger the install
-      console.log('PWA install prompt available');
+      // The browser's native install icon in the address bar will handle installation
     });
-
-    // Optional: Add install button functionality
-    // You can call this function from a button click
-    window.installPWA = function() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          } else {
-            console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null;
-        });
-      }
-    };
   </script>
 </body>
 </html>
