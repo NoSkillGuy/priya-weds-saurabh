@@ -1552,6 +1552,72 @@
       transform: translateY(0);
     }
 
+    /* Guest Name Modal (for personalization) */
+    .guest-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .guest-modal.active {
+      display: flex;
+    }
+
+    .guest-modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius-large);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+      padding: 24px 24px 20px;
+      max-width: 380px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .guest-modal-title {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .guest-modal-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .guest-modal-input {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      background: #fff9f2;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .guest-modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .guest-modal-actions .btn {
+      font-size: 10px;
+      padding-inline: 12px;
+    }
+
     /* RSVP Modal */
     .rsvp-modal {
       display: none;
@@ -1726,6 +1792,39 @@
     </div>
   </div>
 
+  <!-- Guest Name Modal -->
+  <div class="guest-modal" id="guestNameModal">
+    <div class="guest-modal-content">
+      <div class="guest-modal-title" id="guestNameTitle">Add Your Name</div>
+      <div class="guest-modal-subtitle" id="guestNameSubtitle">
+        We would love to address this invitation to you personally. Please tell us your name.
+      </div>
+      <form id="guestNameForm">
+        <select
+          id="guestTitleSelect"
+          class="guest-modal-input"
+          style="margin-bottom: 8px;"
+        >
+          <option value="">Title (optional)</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Miss">Miss</option>
+        </select>
+        <input
+          type="text"
+          id="guestNameInput"
+          class="guest-modal-input"
+          placeholder="Enter your name"
+          autocomplete="name"
+        />
+        <div class="guest-modal-actions">
+          <button type="button" class="btn btn-ghost" id="guestNameSkip">Skip</button>
+          <button type="submit" class="btn btn-primary" id="guestNameSave">Save Name</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="nav-inner">
       <div class="brand">
@@ -1888,6 +1987,33 @@
             </div>
           </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FATHER'S LETTER -->
+    <section id="fathers-letter">
+      <div class="section-header">
+        <div class="section-eyebrow" id="fatherLetterEyebrow">From Priya's Father</div>
+        <div class="section-title" id="fatherLetterTitle">A Few Words From the Heart</div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <p class="muted" id="fatherLetterBody" style="white-space: pre-line;">
+            My dear family member and respected guest,
+
+            With a heart full of gratitude and quiet joy, I invite you to join us as our daughter, Capt Dr. Priya, and our son, Dr. Saurabh, begin this new journey of togetherness.
+
+            As a father, it has been my greatest blessing to watch Priya grow from a curious child into a compassionate, confident and responsible person, dedicated to the service of others. Today, as she steps into this new chapter of life, our hearts are filled with both emotion and pride.
+
+            Your presence, blessings and good wishes will make this occasion truly complete for our families. If you are able to be with us in person, we will be deeply honoured. If distance keeps you away, your blessings from afar will still reach us and mean just as much.
+
+            On behalf of our entire family, I warmly welcome you to share in our happiness, our prayers and our celebrations.
+
+            With regards and respectful pranam,
+            Sanjay Kumar Singh
+          </p>
         </div>
       </div>
     </section>
@@ -2493,6 +2619,18 @@
           music: { play: "Play Music", pause: "Pause Music" },
           hero: { eyebrow: "THE WEDDING OF", script: "With the blessings of our families", names: "CAPT DR. PRIYA & DR. SAURABH", sub: "TWO HEARTS, ONE DESTINY", date: "22 & 23 JANUARY 2026", location: "ROYAL LOTUS VIEW RESOTEL · BENGALURU, KARNATAKA", countdown: "COUNTDOWN TO WEDDING", actions: { program: "View Program Details", venue: "View Venue & Directions", rsvp: "RSVP Now" }, caption: "A glimpse of <strong>Capt Dr. Priya & Dr. Saurabh</strong> as they begin their forever." },
           couple: { eyebrow: "Couple & Families", title: "In Honoured Union", subtitle: "With immense joy, the families invite you to join them in celebrating the union of their children.", together: "Together, Capt Dr. Priya and Dr. Saurabh look forward to beginning this beautiful journey with your blessings and presence.", bride: "The Bride", groom: "The Groom", daughter: "Daughter of", son: "Son of", mother: "Mother", father: "Father" },
+          father: {
+            eyebrow: "From Priya's Father",
+            title: "A Few Words From the Heart",
+            body: "My dear {name},\n\nWith a heart full of gratitude and quiet joy, I invite you to join us as our daughter, Capt Dr. Priya, and Dr. Saurabh begin this new journey of togetherness as husband and wife.\n\nAs a father, it has been my greatest blessing to watch Priya grow from a curious child into a compassionate, confident and responsible person, dedicated to the service of others. Today, as she steps into this new chapter of life, our hearts are filled with both emotion and pride.\n\nYour presence, blessings and good wishes will make this occasion truly complete for our families. If you are able to be with us in person, we will be deeply honoured. If distance keeps you away, your blessings from afar will still reach us and mean just as much.\n\nOn behalf of our entire family, I warmly welcome you to share in our happiness, our prayers and our celebrations.\n\nWith regards and respectful pranam,\nSanjay Kumar Singh"
+          },
+          guest: {
+            title: "Add Your Name",
+            subtitle: "We would love to address this invitation to you personally. Please tell us your name.",
+            placeholder: "Enter your name",
+            save: "Save Name",
+            skip: "Skip"
+          },
           gallery: { eyebrow: "Photo Story", title: "Our Journey in Moments", subtitle: "A few glimpses from the memories and moments that bring us here today." },
           events: { eyebrow: "Program Details", title: "The Celebrations", subtitle: "We would be honoured by your presence at each of these moments of joy.", day1: "Day One", day2: "Day Two", tilak: { label: "Tilak", tag: "Auspicious beginning" }, haldi: { label: "Haldi", tag: "Turmeric & traditions" }, mehandi: { label: "Mehandi", tag: "Henna & happiness" }, jaimala: { label: "Jaimala", tag: "Exchange of garlands" }, dinner: { label: "Dinner", tag: "Feast with family & friends" }, wedding: { label: "Wedding", tag: "Sacred vows" }, complete: "Your presence and blessings at these ceremonies will make our celebration truly complete." },
           venue: { eyebrow: "Venue", title: "Where to Join Us", subtitle: "A serene and elegant venue to witness the beginning of a lifetime of togetherness.", arrive: "Kindly arrive a little early to comfortably join us for the ceremonies. Our families eagerly await to welcome you with warmth and love.", maps: "Open in Google Maps" },
@@ -2506,6 +2644,18 @@
           music: { play: "संगीत चलाएं", pause: "संगीत रोकें" },
           hero: { eyebrow: "शादी का", script: "हमारे परिवारों के आशीर्वाद के साथ", names: "कैप्ट डॉ. प्रिया और डॉ. सौरभ", sub: "दो दिल, एक नसीब", date: "22 और 23 जनवरी 2026", location: "रॉयल लोटस व्यू रिसोटेल · बेंगलुरु, कर्नाटक", countdown: "शादी की उलटी गिनती", actions: { program: "कार्यक्रम विवरण देखें", venue: "स्थान और दिशा-निर्देश देखें", rsvp: "अभी आरएसवीपी करें" }, caption: "<strong>कैप्ट डॉ. प्रिया और डॉ. सौरभ</strong> की एक झलक जैसे वे अपने हमेशा की शुरुआत करते हैं।" },
           couple: { eyebrow: "दंपति और परिवार", title: "सम्मानजनक मिलन में", subtitle: "अत्यधिक खुशी के साथ, परिवार आपको अपने बच्चों के मिलन का जश्न मनाने में शामिल होने के लिए आमंत्रित करते हैं।", together: "एक साथ, कैप्ट डॉ. प्रिया और डॉ. सौरभ आपके आशीर्वाद और उपस्थिति के साथ इस सुंदर यात्रा की शुरुआत करने के लिए तत्पर हैं।", bride: "दुल्हन", groom: "दूल्हा", daughter: "की पुत्री", son: "के पुत्र", mother: "माता", father: "पिता" },
+          father: {
+            eyebrow: "प्रिय की ओर से पिता का पत्र",
+            title: "दिल से कुछ शब्द",
+            body: "मेरे प्रिय {name},\n\nबहुत ही शांत, कृतज्ञ और आनंदित हृदय से, मैं आपको हमारी बेटी कैप्ट डॉ. प्रिया और डॉ. सौरभ के जीवन के इस नए सफर की शुरुआत के साक्षी बनने के लिए आमंत्रित करता हूँ, जहाँ वे पति-पत्नी के रूप में एक साथ अपना जीवन आरंभ कर रहे हैं।\n\nएक पिता के रूप में, मेरे लिए यह सबसे बड़ा आशीर्वाद रहा है कि मैंने प्रिया को एक जिज्ञासु बच्ची से एक संवेदनशील, आत्मविश्वासी और जिम्मेदार व्यक्तित्व के रूप में बढ़ते हुए देखा, जो सेवा और कर्तव्य के प्रति समर्पित है। आज जब वह अपने जीवन के इस नए अध्याय में प्रवेश कर रही है, तो हमारा हृदय भावुकता और गर्व से भर उठा है।\n\nआपकी उपस्थिति, आपके आशीर्वाद और आपकी शुभकामनाएँ हमारे पूरे परिवार के लिए इस अवसर को वास्तव में पूर्ण बना देंगी। यदि आप स्वयं आकर हमारे साथ रह सकें तो हमें अत्यंत सम्मान और प्रसन्नता होगी। यदि दूरी आपको दूर रखे, तो भी आपके दिल से निकली दुआएँ हम तक अवश्य पहुँचेंगी और उतनी ही मूल्यवान रहेंगी।\n\nहमारे पूरे परिवार की ओर से, मैं विनम्रतापूर्वक आपको हमारे सुख, हमारी प्रार्थनाओं और हमारे उत्सव में सम्मिलित होने के लिए आमंत्रित करता हूँ।\n\nसादर और विनम्र प्रणाम सहित,\nसंजय कुमार सिंह"
+          },
+          guest: {
+            title: "अपना नाम लिखें",
+            subtitle: "हम इस निमंत्रण को व्यक्तिगत रूप से आपको संबोधित करना चाहेंगे। कृपया अपना नाम बताएं।",
+            placeholder: "अपना नाम लिखें",
+            save: "नाम सहेजें",
+            skip: "छोड़ें"
+          },
           gallery: { eyebrow: "फोटो कहानी", title: "पलों में हमारी यात्रा", subtitle: "यादों और पलों की कुछ झलकियाँ जो हमें यहाँ लाई हैं।" },
           events: { eyebrow: "कार्यक्रम विवरण", title: "उत्सव", subtitle: "हम इन खुशी के पलों में से प्रत्येक में आपकी उपस्थिति से सम्मानित होंगे।", day1: "पहला दिन", day2: "दूसरा दिन", tilak: { label: "तिलक", tag: "शुभ शुरुआत" }, haldi: { label: "हल्दी", tag: "हल्दी और परंपराएं" }, mehandi: { label: "मेहंदी", tag: "मेहंदी और खुशी" }, jaimala: { label: "जयमाला", tag: "मालाओं का आदान-प्रदान" }, dinner: { label: "रात्रिभोज", tag: "परिवार और दोस्तों के साथ भोज" }, wedding: { label: "शादी", tag: "पवित्र वचन" }, complete: "इन समारोहों में आपकी उपस्थिति और आशीर्वाद हमारे उत्सव को वास्तव में पूर्ण बना देगा।" },
           venue: { eyebrow: "स्थान", title: "हमसे जुड़ने के लिए कहाँ", subtitle: "एक शांत और सुरुचिपूर्ण स्थान जीवन भर की साथी की शुरुआत को देखने के लिए।", arrive: "कृपया समारोहों में आराम से शामिल होने के लिए थोड़ा पहले पहुंचें। हमारे परिवार आपका गर्मजोशी और प्यार से स्वागत करने के लिए उत्सुक हैं।", maps: "Google Maps में खोलें" },
@@ -2532,6 +2682,7 @@
       const languageModal = document.getElementById('languageModal');
       const langButtons = document.querySelectorAll('.language-option');
       const languageSwitcher = document.getElementById('languageSwitcher');
+      const guestNameModal = document.getElementById('guestNameModal');
 
       // Helper function to safely get translation
       function getTranslation(key) {
@@ -2616,6 +2767,12 @@
           }
         }
 
+        // Bottom RSVP button
+        const rsvpMainButton = document.getElementById('rsvpButton');
+        if (rsvpMainButton && langData['hero.actions.rsvp']) {
+          rsvpMainButton.innerHTML = langData['hero.actions.rsvp'] + ' <span class="btn-icon">✓</span>';
+        }
+
         // Couple section
         const coupleEyebrow = document.querySelector('#couple .section-eyebrow');
         if (coupleEyebrow && langData['couple.eyebrow']) coupleEyebrow.textContent = langData['couple.eyebrow'];
@@ -2657,6 +2814,43 @@
             muted.innerHTML = muted.innerHTML.replace('Son of', langData['couple.son']);
           }
         });
+
+        // Father's letter (personalized with guest name if available)
+        const fatherEyebrow = document.getElementById('fatherLetterEyebrow');
+        if (fatherEyebrow && langData['father.eyebrow']) fatherEyebrow.textContent = langData['father.eyebrow'];
+
+        const fatherTitle = document.getElementById('fatherLetterTitle');
+        if (fatherTitle && langData['father.title']) fatherTitle.textContent = langData['father.title'];
+
+        const fatherBody = document.getElementById('fatherLetterBody');
+        if (fatherBody && langData['father.body']) {
+          const storedName = localStorage.getItem('wedding-guest-name');
+          const storedTitle = localStorage.getItem('wedding-guest-title') || '';
+          const fallbackName = currentLang === 'hi'
+            ? 'परिवार सदस्य और आदरणीय अतिथि'
+            : 'family member and respected guest';
+          let displayName = (storedName && storedName.trim()) || fallbackName;
+          if (storedName && storedName.trim() && storedTitle.trim()) {
+            displayName = `${storedTitle.trim()} ${storedName.trim()}`;
+          }
+          fatherBody.textContent = langData['father.body'].replace('{name}', displayName);
+        }
+
+        // Guest name modal texts
+        const guestTitle = document.getElementById('guestNameTitle');
+        if (guestTitle && langData['guest.title']) guestTitle.textContent = langData['guest.title'];
+
+        const guestSubtitle = document.getElementById('guestNameSubtitle');
+        if (guestSubtitle && langData['guest.subtitle']) guestSubtitle.textContent = langData['guest.subtitle'];
+
+        const guestInput = document.getElementById('guestNameInput');
+        if (guestInput && langData['guest.placeholder']) guestInput.placeholder = langData['guest.placeholder'];
+
+        const guestSave = document.getElementById('guestNameSave');
+        if (guestSave && langData['guest.save']) guestSave.textContent = langData['guest.save'];
+
+        const guestSkip = document.getElementById('guestNameSkip');
+        if (guestSkip && langData['guest.skip']) guestSkip.textContent = langData['guest.skip'];
 
         // Gallery
         const galleryEyebrow = document.querySelector('#gallery .section-eyebrow');
@@ -2803,6 +2997,10 @@
           if (languageModal) {
             languageModal.classList.remove('active');
           }
+          // Ask for guest name if not already provided
+          if (!localStorage.getItem('wedding-guest-name') && guestNameModal) {
+            guestNameModal.classList.add('active');
+          }
         }
       }
       
@@ -2841,6 +3039,11 @@
           
           // Dispatch event for other components to update
           window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+
+          // After choosing language for the first time, ask for guest name if missing
+          if (!localStorage.getItem('wedding-guest-name') && guestNameModal) {
+            guestNameModal.classList.add('active');
+          }
         });
       });
       
@@ -2853,8 +3056,52 @@
         });
       }
       
+      // Re-render when guest name is updated
+      window.addEventListener('guestNameUpdated', () => {
+        updateLanguage(currentLang);
+      });
+
       // Load translations when page loads
       loadTranslations();
+    })();
+
+    // Guest name modal logic (stores name for personalization)
+    (function () {
+      const modal = document.getElementById('guestNameModal');
+      const form = document.getElementById('guestNameForm');
+      const input = document.getElementById('guestNameInput');
+      const skipBtn = document.getElementById('guestNameSkip');
+      const titleSelect = document.getElementById('guestTitleSelect');
+
+      if (!modal || !form || !input || !skipBtn || !titleSelect) return;
+
+      // If name already stored, ensure modal is hidden
+      if (localStorage.getItem('wedding-guest-name')) {
+        modal.classList.remove('active');
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = input.value.trim();
+        if (!name) {
+          input.focus();
+          return;
+        }
+        const title = titleSelect.value || '';
+        localStorage.setItem('wedding-guest-name', name);
+        if (title) {
+          localStorage.setItem('wedding-guest-title', title);
+        } else {
+          localStorage.removeItem('wedding-guest-title');
+        }
+        modal.classList.remove('active');
+        // Notify language system to re-render personalized text
+        window.dispatchEvent(new Event('guestNameUpdated'));
+      });
+
+      skipBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
     })();
 
     // Register Service Worker for PWA (only works with http/https, not file://)
