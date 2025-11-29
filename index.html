@@ -1772,6 +1772,69 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
+
+    /* Celebration confetti */
+    .confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 3000;
+    }
+
+    .confetti-piece,
+    .flower-piece {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
+      opacity: 0.9;
+      animation: confetti-fall linear forwards;
+    }
+
+    .flower-piece {
+      width: auto;
+      height: auto;
+      font-size: 18px;
+      border-radius: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translate3d(var(--x, 0), -10%, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(var(--xEnd, 0), 110vh, 0) rotate(360deg);
+      }
+    }
+
+    /* Celebration trigger button */
+    .celebrate-button {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 3100;
+      border: 1px solid rgba(212, 175, 55, 0.75);
+      background: radial-gradient(circle at top left, #fffdf7, #fbe3eb);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      border-radius: 50%;
+      padding: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #7c2831;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .celebrate-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.16);
+    }
   </style>
 </head>
 <body>
@@ -2322,6 +2385,20 @@
       </div>
     </footer>
   </main>
+
+  <!-- Celebration confetti container -->
+  <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+  <!-- Manual celebration trigger -->
+  <button
+    type="button"
+    class="celebrate-button"
+    id="celebrateButton"
+    title="Celebrate"
+    aria-label="Celebrate"
+  >
+    🎉
+  </button>
 
   <!-- RSVP Modal -->
   <div class="rsvp-modal" id="rsvpModal">
@@ -3239,6 +3316,93 @@
       e.preventDefault();
       // The browser's native install icon in the address bar will handle installation
     });
+
+    // Celebration animation (confetti + flowers)
+    (function () {
+      const colors = ["#d4af37", "#c27d88", "#9bb69d", "#f6c1c7", "#f5d48a"];
+      const flowers = ["🌸", "🌺", "🌼", "💮"];
+
+      function launchConfetti() {
+        const layer = document.getElementById("confettiLayer");
+        if (!layer) return;
+
+        const pieces = 70;
+        const duration = 2800;
+
+        for (let i = 0; i < pieces; i++) {
+          const piece = document.createElement("div");
+          piece.className = "confetti-piece";
+          const startX = Math.random() * 100;
+          const endX = startX + (Math.random() * 20 - 10);
+          piece.style.left = startX + "vw";
+          piece.style.setProperty("--x", "0vw");
+          piece.style.setProperty("--xEnd", endX + "vw");
+          piece.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          piece.style.animationDuration =
+            2 + Math.random() * 1.2 + "s";
+          const delay = Math.random() * 0.4;
+          piece.style.animationDelay = delay + "s";
+          piece.setAttribute(
+            "data-end-time",
+            (Date.now() + (parseFloat(piece.style.animationDuration) + delay) * 1000).toString()
+          );
+          layer.appendChild(piece);
+        }
+
+        // Add a few floating flowers for a softer, wedding feel
+        for (let i = 0; i < 20; i++) {
+          const flower = document.createElement("div");
+          flower.className = "flower-piece";
+          const startX = Math.random() * 100;
+          const endX = startX + (Math.random() * 15 - 7);
+          flower.style.left = startX + "vw";
+          flower.style.setProperty("--x", "0vw");
+          flower.style.setProperty("--xEnd", endX + "vw");
+          flower.textContent =
+            flowers[Math.floor(Math.random() * flowers.length)];
+          const fDuration = 3 + Math.random() * 1.5;
+          const fDelay = Math.random() * 0.4;
+          flower.style.animationDuration = fDuration + "s";
+          flower.style.animationDelay = fDelay + "s";
+          flower.setAttribute(
+            "data-end-time",
+            (Date.now() + (fDuration + fDelay) * 1000).toString()
+          );
+          layer.appendChild(flower);
+        }
+
+        // Clean up after animation (remove only finished elements)
+        setTimeout(() => {
+          const now = Date.now();
+          Array.from(layer.children).forEach((node) => {
+            const endTime = parseInt(node.getAttribute("data-end-time") || "0", 10);
+            if (endTime && endTime < now) {
+              node.remove();
+            }
+          });
+        }, duration + 1000);
+      }
+
+      // Expose globally so other UI (like the celebrate button) can trigger it
+      window.launchCelebration = launchConfetti;
+
+      // Fire once shortly after initial language/name setup
+      window.addEventListener("load", () => {
+        setTimeout(launchConfetti, 1500);
+      });
+
+      // Also celebrate when user saves their name
+      window.addEventListener("guestNameUpdated", launchConfetti);
+
+      // Floating celebrate button click
+      const celebrateBtn = document.getElementById("celebrateButton");
+      if (celebrateBtn) {
+        celebrateBtn.addEventListener("click", () => {
+          launchConfetti();
+        });
+      }
+    })();
   </script>
 </body>
 </html>
