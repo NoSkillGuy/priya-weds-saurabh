@@ -616,6 +616,65 @@
       }
     }
 
+    .ganesh-slok {
+      text-align: center;
+      padding: 20px 16px 8px 16px;
+      background: transparent;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ganesh-symbol {
+      font-size: clamp(18px, 3.5vw, 24px);
+      color: rgba(124, 40, 49, 0.7);
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      opacity: 0.8;
+      filter: drop-shadow(0 1px 2px rgba(124, 40, 49, 0.2));
+      flex-shrink: 0;
+    }
+
+    .ganesh-text {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(16px, 3vw, 20px);
+      color: rgba(124, 40, 49, 0.8);
+      line-height: 1.8;
+      font-weight: 600;
+      text-align: center;
+      flex: 0 1 auto;
+    }
+
+    .ganesh-slok-translation {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .ganesh-slok {
+        padding: 14px 12px 6px 12px;
+        gap: 8px;
+      }
+
+      .ganesh-symbol {
+        font-size: 16px;
+      }
+
+      .ganesh-text {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .ganesh-slok-translation {
+        font-size: 9px;
+      }
+    }
+
     .hero-eyebrow {
       font-size: 10px;
       letter-spacing: 0.26em;
@@ -1925,6 +1984,16 @@
     </div>
   </header>
 
+  <!-- Ganesh Slok -->
+  <div class="ganesh-slok">
+    <span class="ganesh-symbol">🕉</span>
+    <span class="ganesh-text">
+      Vakratunda Mahakaya Suryakoti Samaprabha<br>
+      Nirvighnam Kuru Me Deva Sarva Karyeshu Sarvada
+    </span>
+    <span class="ganesh-symbol">🕉</span>
+  </div>
+
   <main class="page-shell">
     <!-- HERO -->
     <section class="hero" id="top">
@@ -2695,6 +2764,7 @@
           language: { title: "Choose the Language", subtitle: "Please select your preferred language" },
           nav: { home: "Home", couple: "Couple", photos: "Photos", program: "Program", venue: "Venue", rsvp: "RSVP" },
           music: { play: "Play Music", pause: "Pause Music" },
+          ganesh: { sanskrit: "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा", transliteration: "Vakratunda Mahakaya Suryakoti Samaprabha<br>Nirvighnam Kuru Me Deva Sarva Karyeshu Sarvada", translation: "O Lord Ganesha with curved trunk and massive body,<br>Please remove all obstacles from all my endeavors, always." },
           hero: { eyebrow: "THE WEDDING OF", script: "With the blessings of our families", names: "CAPT DR. PRIYA & DR. SAURABH", sub: "TWO HEARTS, ONE DESTINY", date: "22 & 23 JANUARY 2026", location: "ROYAL LOTUS VIEW RESOTEL · BENGALURU, KARNATAKA", countdown: "COUNTDOWN TO WEDDING", actions: { program: "View Program Details", venue: "View Venue & Directions", rsvp: "RSVP Now" }, caption: "A glimpse of <strong>Capt Dr. Priya & Dr. Saurabh</strong> as they begin their forever." },
           couple: { eyebrow: "Couple & Families", title: "In Honoured Union", subtitle: "With immense joy, the families invite you to join them in celebrating the union of their children.", together: "Together, Capt Dr. Priya and Dr. Saurabh look forward to beginning this beautiful journey with your blessings and presence.", bride: "The Bride", groom: "The Groom", daughter: "Daughter of", son: "Son of", mother: "Mother", father: "Father" },
           father: {
@@ -2720,6 +2790,7 @@
           language: { title: "भाषा चुनें", subtitle: "कृपया अपनी पसंदीदा भाषा चुनें" },
           nav: { home: "होम", couple: "दंपति", photos: "तस्वीरें", program: "कार्यक्रम", venue: "स्थान", rsvp: "आरएसवीपी" },
           music: { play: "संगीत चलाएं", pause: "संगीत रोकें" },
+          ganesh: { sanskrit: "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा", transliteration: "Vakratunda Mahakaya Suryakoti Samaprabha<br>Nirvighnam Kuru Me Deva Sarva Karyeshu Sarvada", translation: "हे वक्रतुण्ड और विशाल शरीर वाले भगवान गणेश,<br>कृपया मेरे सभी कार्यों से सभी बाधाओं को हमेशा दूर करें।" },
           hero: { eyebrow: "शादी का", script: "हमारे परिवारों के आशीर्वाद के साथ", names: "कैप्ट डॉ. प्रिया और डॉ. सौरभ", sub: "दो दिल, एक नसीब", date: "22 और 23 जनवरी 2026", location: "रॉयल लोटस व्यू रिसोटेल · बेंगलुरु, कर्नाटक", countdown: "शादी की उलटी गिनती", actions: { program: "कार्यक्रम विवरण देखें", venue: "स्थान और दिशा-निर्देश देखें", rsvp: "अभी आरएसवीपी करें" }, caption: "<strong>कैप्ट डॉ. प्रिया और डॉ. सौरभ</strong> की एक झलक जैसे वे अपने हमेशा की शुरुआत करते हैं।" },
           couple: { eyebrow: "दंपति और परिवार", title: "सम्मानजनक मिलन में", subtitle: "अत्यधिक खुशी के साथ, परिवार आपको अपने बच्चों के मिलन का जश्न मनाने में शामिल होने के लिए आमंत्रित करते हैं।", together: "एक साथ, कैप्ट डॉ. प्रिया और डॉ. सौरभ आपके आशीर्वाद और उपस्थिति के साथ इस सुंदर यात्रा की शुरुआत करने के लिए तत्पर हैं।", bride: "दुल्हन", groom: "दूल्हा", daughter: "की पुत्री", son: "के पुत्र", mother: "माता", father: "पिता" },
           father: {
@@ -2745,6 +2816,7 @@
           language: { title: "భాషను ఎంచుకోండి", subtitle: "దయచేసి మీకు ఇష్టమైన భాషను ఎంచుకోండి" },
           nav: { home: "హోమ్", couple: "వరుడు – వధువు", photos: "ఫోటోలు", program: "కార్యక్రమం", venue: "వేదిక", rsvp: "హాజరు సమాచారం" },
           music: { play: "సంగీతం ఆన్ చేయండి", pause: "సంగీతం ఆపండి" },
+          ganesh: { sanskrit: "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा", transliteration: "Vakratunda Mahakaya Suryakoti Samaprabha<br>Nirvighnam Kuru Me Deva Sarva Karyeshu Sarvada", translation: "వక్రతుండ మహాకాయ సూర్యకోటి సమప్రభా,<br>నిర్విఘ్నం కురు మే దేవ సర్వకార్యేషు సర్వదా." },
           hero: {
             eyebrow: "శుభ వివాహం",
             script: "మా కుటుంబాల ఆశీర్వాదాలతో",
@@ -2905,6 +2977,18 @@
         }
 
         // Music toggle label is handled by the music module (language-aware)
+
+        // Ganesh Slok section (following hero section pattern)
+        const ganeshText = document.querySelector('.ganesh-slok .ganesh-text');
+        if (ganeshText) {
+          if (lang === 'en' && langData['ganesh.transliteration']) {
+            ganeshText.innerHTML = langData['ganesh.transliteration'];
+          } else if (lang === 'te' && langData['ganesh.translation']) {
+            ganeshText.innerHTML = langData['ganesh.translation'];
+          } else if (lang === 'hi' && langData['ganesh.sanskrit']) {
+            ganeshText.innerHTML = langData['ganesh.sanskrit'];
+          }
+        }
 
         // Hero section
         const heroEyebrow = document.querySelector('.hero-eyebrow');
