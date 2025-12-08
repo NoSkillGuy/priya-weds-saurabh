@@ -17,8 +17,8 @@
   <link rel="manifest" href="./manifest.json" />
   
   <!-- Apple Touch Icons -->
-  <link rel="apple-touch-icon" href="assets/photos/couple/1.jpeg" />
-  <link rel="icon" type="image/jpeg" href="assets/photos/couple/1.jpeg" />
+  <link rel="apple-touch-icon" href="assets/photos/icons/logo.jpeg" />
+  <link rel="icon" type="image/jpeg" href="assets/photos/icons/logo.jpeg" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
@@ -80,7 +80,7 @@
     .page-shell {
       max-width: var(--page-width);
       margin: 0 auto;
-      padding: 16px 16px 80px;
+      padding: 0px 16px 16px 80px
     }
 
     /* Mobile-first responsive adjustments */
@@ -102,7 +102,6 @@
       .brand-monogram {
         width: 32px;
         height: 32px;
-        font-size: 14px;
       }
 
       .brand-title {
@@ -436,15 +435,7 @@
       height: 38px;
       border-radius: 50%;
       border: 1px solid rgba(212, 175, 55, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at 30% 0, #fdf3d5, #f0cd76);
-      color: #553616;
-      font-family: "Playfair Display", serif;
-      font-weight: 600;
-      font-size: 18px;
+      object-fit: cover;
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
     }
 
@@ -616,9 +607,43 @@
       }
     }
 
+    .blessing-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+    }
+
+    .blessing-icon.ganesh {
+      padding-top: 20px;
+      padding-bottom: 4px;
+    }
+
+    .blessing-icon.kalash {
+      padding-top: 4px;
+      padding-bottom: 0;
+    }
+
+    .ganesh-img,
+    .kalash-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(124, 40, 49, 0.25));
+    }
+
+    .kalash-img {
+      width: 70px;
+      height: 70px;
+    }
+
+    .ganesh-img {
+      border-radius: 50%;
+    }
+
     .ganesh-slok {
       text-align: center;
-      padding: 20px 16px 8px 16px;
+      padding: 4px 16px;
       background: transparent;
       width: 100%;
       display: flex;
@@ -656,8 +681,24 @@
     }
 
     @media (max-width: 480px) {
+      .blessing-icon.ganesh {
+        padding-top: 16px;
+        padding-bottom: 2px;
+      }
+
+      .blessing-icon.kalash {
+        padding-top: 2px;
+        padding-bottom: 0;
+      }
+
+      .ganesh-img,
+      .kalash-img {
+        width: 40px;
+        height: 40px;
+      }
+
       .ganesh-slok {
-        padding: 14px 12px 6px 12px;
+        padding: 2px 12px;
         gap: 8px;
       }
 
@@ -1951,7 +1992,7 @@
   <header class="site-header">
     <div class="nav-inner">
       <div class="brand">
-        <div class="brand-monogram">P&amp;S</div>
+        <img src="assets/photos/icons/logo.jpeg" alt="P&S" class="brand-monogram" />
         <div class="brand-text">
           <div class="brand-title">Capt Dr. Priya &amp; Dr. Saurabh</div>
           <div class="brand-sub">22 &amp; 23 January 2026 · Bengaluru</div>
@@ -1984,6 +2025,11 @@
     </div>
   </header>
 
+  <!-- Ganesh Ji -->
+  <div class="blessing-icon ganesh">
+    <img src="assets/photos/icons/Ganesh.jpeg" alt="Shri Ganesh" class="ganesh-img" />
+  </div>
+
   <!-- Ganesh Slok -->
   <div class="ganesh-slok">
     <span class="ganesh-symbol">🕉</span>
@@ -1992,6 +2038,11 @@
       Nirvighnam Kuru Me Deva Sarva Karyeshu Sarvada
     </span>
     <span class="ganesh-symbol">🕉</span>
+  </div>
+
+  <!-- Kalash -->
+  <div class="blessing-icon kalash">
+    <img src="assets/photos/icons/Kalash.png" alt="Shubh Kalash" class="kalash-img" />
   </div>
 
   <main class="page-shell">
