@@ -30,7 +30,7 @@ logs/
 *.log
 
 # OS generated files
-Icon?
+# Icon?
 # But allow PWA icons
-!assets/photos/icons/icon-*.png
+# !assets/photos/icons/icon-*.png
 
