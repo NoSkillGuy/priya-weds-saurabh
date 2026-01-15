@@ -1935,9 +1935,58 @@
       transform: translateY(-1px);
       box-shadow: 0 14px 26px rgba(0, 0, 0, 0.16);
     }
+
+    /* Toast Notification Styles */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #f5d48a 100%);
+      color: var(--text-main);
+      padding: 16px 24px;
+      border-radius: var(--radius-medium);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+      z-index: 10000;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+      max-width: 90%;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border: 2px solid var(--border-gold);
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast-notification::before {
+      content: '🔄';
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .toast-notification {
+        top: 10px;
+        min-width: 280px;
+        padding: 14px 20px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification">
+    New version available. Reloading...
+  </div>
+
   <!-- Background Music -->
   <audio id="bg-music" loop preload="auto" volume="0.5">
     <source src="assets/music/1.mp3" type="audio/mpeg" />
@@ -3511,6 +3560,29 @@
       e.preventDefault();
       // The browser's native install icon in the address bar will handle installation
     });
+
+    // Service Worker Message Listener - Handle update notifications
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'update-available') {
+          const toast = document.getElementById('toastNotification');
+          if (toast) {
+            // Show toast notification
+            toast.classList.add('show');
+            
+            // Wait 2-3 seconds (using 2.5 seconds) then reload
+            setTimeout(() => {
+              window.location.reload();
+            }, 2500);
+          } else {
+            // If toast element not found, reload immediately after short delay
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        }
+      });
+    }
 
     // Celebration animation (confetti + flowers)
     (function () {

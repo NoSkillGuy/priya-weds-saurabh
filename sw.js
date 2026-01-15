@@ -41,9 +41,9 @@ self.addEventListener('activate', (event) => {
   return self.clients.claim();
 });
 
-// Fetch event - Stale-while-revalidate strategy
+// Fetch event - Stale-while-revalidate strategy with change detection
 // Serve cached version immediately (fast), then update cache in background
-// This provides instant loading while keeping content fresh
+// Detect changes by comparing Content-Length headers and notify clients
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') {
@@ -64,11 +64,48 @@ self.addEventListener('fetch', (event) => {
           // Clone the response for caching
           const responseToCache = networkResponse.clone();
 
-          // Update cache with latest version
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-            console.log('Cache updated with latest version:', event.request.url);
-          });
+          // Check for changes by comparing Content-Length headers
+          if (cachedResponse) {
+            const cachedLength = cachedResponse.headers.get('Content-Length');
+            const networkLength = networkResponse.headers.get('Content-Length');
+            
+            // If Content-Length differs, or cached version doesn't have it, consider it a change
+            const hasChanged = cachedLength !== networkLength || 
+                              (networkLength !== null && cachedLength === null) ||
+                              (cachedLength === null && networkLength !== null);
+
+            if (hasChanged) {
+              console.log('Change detected for:', event.request.url);
+              console.log('Cached Length:', cachedLength, 'Network Length:', networkLength);
+              
+              // Update cache with latest version
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, responseToCache);
+                console.log('Cache updated with latest version:', event.request.url);
+              });
+
+              // Notify all clients about the update
+              self.clients.matchAll().then((clients) => {
+                clients.forEach((client) => {
+                  client.postMessage({
+                    type: 'update-available',
+                    url: event.request.url
+                  });
+                });
+              });
+            } else {
+              // No change detected, but still update cache silently
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+            }
+          } else {
+            // No cached version, just cache the new response
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+              console.log('Cached new resource:', event.request.url);
+            });
+          }
 
           return networkResponse;
         })
@@ -106,5 +143,12 @@ self.addEventListener('fetch', (event) => {
       });
     })
   );
+});
+
+// Message handler for future extensibility
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });
 
