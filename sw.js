@@ -1,5 +1,5 @@
 // Service Worker for Wedding Invitation PWA
-const CACHE_NAME = 'wedding-invitation-v1';
+const CACHE_NAME = 'wedding-invitation-v3';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -12,14 +12,23 @@ const urlsToCache = [
 // Install event - cache resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-      .catch((error) => {
-        console.log('Cache failed:', error);
-      })
+    // Delete all old caches first
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          console.log('Deleting old cache during install:', cacheName);
+          return caches.delete(cacheName);
+        })
+      );
+    }).then(() => {
+      // Now open new cache
+      return caches.open(CACHE_NAME);
+    }).then((cache) => {
+      console.log('Opened new cache:', CACHE_NAME);
+      return cache.addAll(urlsToCache);
+    }).catch((error) => {
+      console.log('Cache failed:', error);
+    })
   );
   self.skipWaiting();
 });
