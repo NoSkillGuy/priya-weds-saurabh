@@ -1547,6 +1547,25 @@
       gap: 10px;
       margin-bottom: 16px;
     }
+    
+    .rsvp-grid .rsvp-pill {
+      min-width: 150px;
+    }
+    
+    .rsvp-grid-hosts-wrapper {
+      margin-bottom: 16px;
+    }
+    
+    .rsvp-grid-hosts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .rsvp-grid-hosts .rsvp-pill {
+      min-width: 150px;
+    }
 
     .rsvp-pill {
       border-radius: 999px;
@@ -1557,6 +1576,13 @@
       align-items: center;
       gap: 8px;
       font-size: 11px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    
+    .rsvp-pill span {
+      flex: 0 1 auto;
+      white-space: nowrap;
     }
 
     .rsvp-badge {
@@ -2623,13 +2649,18 @@
               <div class="rsvp-badge">RSVP</div>
               <span>Arvind Kumar Singh</span>
             </div>
-            <div class="rsvp-pill">
-              <div class="rsvp-badge">Host</div>
-              <span>Siva Praveen Rayapudi</span>
-            </div>
-            <div class="rsvp-pill">
-              <div class="rsvp-badge">Host</div>
-              <span>Pooja Singh</span>
+          </div>
+
+          <div class="rsvp-grid-hosts-wrapper">
+            <div class="rsvp-grid rsvp-grid-hosts">
+              <div class="rsvp-pill">
+                <div class="rsvp-badge">Host</div>
+                <span>Siva Praveen Rayapudi</span>
+              </div>
+              <div class="rsvp-pill">
+                <div class="rsvp-badge">Host</div>
+                <span>Pooja Singh</span>
+              </div>
             </div>
           </div>
 
